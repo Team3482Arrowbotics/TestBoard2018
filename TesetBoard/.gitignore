@@ -5,18 +5,6 @@ dist/
 sysProps.xml
 workbench.xmi
 
-# IDE
-*.ipr
-*.iml
-*.iws
-out/
-tmp/
-.settings/
-.loadpath
-.project
-/.idea
-.classpath
-
 # Toast/GradleRIO
 run/
 .gradle/

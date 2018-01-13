@@ -12,14 +12,18 @@ public class OI {
 	Joystick x;
 	JoystickButton switchPiston;
 	JoystickButton extendActuator;
+	JoystickButton slowSpin;
 	JoystickButton halfActuator;
 	JoystickButton retractActuator;
 	public OI(){
 		x = new Joystick(0);
 		switchPiston = new JoystickButton(x, 1);
 		switchPiston.whenPressed(new SwitchPiston());
-		extendActuator = new JoystickButton(x, 2);
-		extendActuator.whenPressed(new MoveActuatorPot(AcValue.kExtended));
+		//extendActuator = new JoystickButton(x, 2);
+		//extendActuator.whenPressed(new MoveActuatorPot(AcValue.kExtended));
+		//Below is actually to spin talon motor
+		slowSpin = new JoystickButton(x, 2);
+		slowSpin.whenPressed(new SlowSpin());
 		halfActuator = new JoystickButton(x, 4);
 		halfActuator.whenPressed(new MoveActuatorPot(AcValue.kHalfway));
 		retractActuator = new JoystickButton(x, 3);

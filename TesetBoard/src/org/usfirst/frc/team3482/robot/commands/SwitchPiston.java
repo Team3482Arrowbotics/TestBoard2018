@@ -12,5 +12,11 @@ public class SwitchPiston extends InstantCommand{
 		} else{
 			RobotMap.ds.set(DoubleSolenoid.Value.kForward);
 		}
+		
+		if(RobotMap.ds2.get() == DoubleSolenoid.Value.kForward){
+			RobotMap.ds2.set(DoubleSolenoid.Value.kReverse);
+		} else{
+			RobotMap.ds2.set(DoubleSolenoid.Value.kForward);
+		}
 	}
 }

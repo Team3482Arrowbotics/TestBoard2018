@@ -7,11 +7,15 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SlowSpin extends Command{
+	double speed;
+	public SlowSpin(double speed){
+		this.speed = speed;
+	}
 	public void initialize(){
-		RobotMap.talon.set(ControlMode.PercentOutput, .1);
+		RobotMap.pidtest.set(ControlMode.PercentOutput, speed);
 	}
 	public void end(){
-		RobotMap.talon.set(ControlMode.PercentOutput, 0);
+		RobotMap.pidtest.set(ControlMode.PercentOutput, 0);
 	}
 	@Override
 	protected boolean isFinished() {

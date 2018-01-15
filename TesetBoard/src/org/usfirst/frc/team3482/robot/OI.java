@@ -19,10 +19,12 @@ public class OI {
 		switchPiston = new JoystickButton(x, 1);
 		switchPiston.whenPressed(new SwitchPiston());
 		extendActuator = new JoystickButton(x, 2);
-		extendActuator.whenPressed(new MoveActuatorPot(AcValue.kExtended));
+//		extendActuator.whenPressed(new MoveActuatorPot(AcValue.kExtended));
+		extendActuator.whileActive(new SlowSpin(.5));
 		halfActuator = new JoystickButton(x, 4);
 		halfActuator.whenPressed(new MoveActuatorPot(AcValue.kHalfway));
 		retractActuator = new JoystickButton(x, 3);
-		retractActuator.whenPressed(new MoveActuatorPot(AcValue.kRetracted));
+//		retractActuator.whenPressed(new MoveActuatorPot(AcValue.kRetracted));
+		retractActuator.whileHeld(new SlowSpin(-.5));
 	}
 }

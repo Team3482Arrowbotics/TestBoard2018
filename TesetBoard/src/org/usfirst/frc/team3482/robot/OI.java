@@ -14,17 +14,19 @@ public class OI {
 	JoystickButton extendActuator;
 	JoystickButton halfActuator;
 	JoystickButton retractActuator;
+	JoystickButton slowSpin;
 	public OI(){
 		x = new Joystick(0);
 		switchPiston = new JoystickButton(x, 1);
 		switchPiston.whenPressed(new SwitchPiston());
-		extendActuator = new JoystickButton(x, 2);
-//		extendActuator.whenPressed(new MoveActuatorPot(AcValue.kExtended));
-		extendActuator.whileActive(new SlowSpin(.5));
+		//extendActuator = new JoystickButton(x, 2);
+		//extendActuator.whenPressed(new MoveActuatorPot(AcValue.kExtended));
+		//Below is actually to spin talon motor
+		slowSpin = new JoystickButton(x, 2);
+		slowSpin.whenPressed(new SlowSpin(.3));
 		halfActuator = new JoystickButton(x, 4);
 		halfActuator.whenPressed(new MoveActuatorPot(AcValue.kHalfway));
 		retractActuator = new JoystickButton(x, 3);
-//		retractActuator.whenPressed(new MoveActuatorPot(AcValue.kRetracted));
-		retractActuator.whileHeld(new SlowSpin(-.5));
+		retractActuator.whenPressed(new MoveActuatorPot(AcValue.kRetracted));
 	}
 }

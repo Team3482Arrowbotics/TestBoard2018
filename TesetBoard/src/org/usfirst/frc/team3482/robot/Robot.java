@@ -1,24 +1,44 @@
 package org.usfirst.frc.team3482.robot;
 
 import org.usfirst.frc.team3482.robot.subsystems.DartActuator;
+import org.usfirst.frc.team3482.robot.subsystems.Elevator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
-	public static DartActuator da;
+	public Elevator e;
 	@Override
 	public void robotInit() {
 		RobotMap.init();
+		/*WPI_TalonSRX _talon = RobotMap.talon;
+        _talon.setSelectedSensorPosition(absolutePosition, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+        
+        _talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+        _talon.setSensorPhase(true);
+        _talon.configNominalOutputForward(0, Constants.kTimeoutMs);
+        _talon.configNominalOutputReverse(0, Constants.kTimeoutMs);
+        _talon.configPeakOutputForward(1, Constants.kTimeoutMs);
+        _talon.configPeakOutputReverse(-1, Constants.kTimeoutMs);
+        
+        _talon.configAllowableClosedloopError(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+        _talon.config_kF(Constants.kPIDLoopIdx, 0.0, Constants.kTimeoutMs);
+        _talon.config_kP(Constants.kPIDLoopIdx, 0.1, Constants.kTimeoutMs);
+        _talon.config_kI(Constants.kPIDLoopIdx, 0.0, Constants.kTimeoutMs);
+        _talon.config_kD(Constants.kPIDLoopIdx, 0.0, Constants.kTimeoutMs);*/
 		OI oi = new OI();
-		da = new DartActuator(.1, 0, 0);
+		e = new Elevator();
+		
+		//RobotMap.talon.set(ControlMode.Position, 0);
 	}
 	@Override
 	public void teleopInit(){
+		
 		//RobotMap.pidtest.set(ControlMode.PercentOutput, -0.5);
 		//RobotMap.pidtest.set(ControlMode.Position, 1000);
 		//RobotMap.pidtest.getSensorCollection().setQuadraturePosition(0, 2);
@@ -27,10 +47,15 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
-		SmartDashboard.putNumber("Potentiometer Value", RobotMap.pot.get());
+		//RobotMap.talon.set(ControlMode.Position, 409600);
+		//System.out.println(OI.getXbox().getPOV());
+		//SmartDashboard.putNumber("Talon Encoder Position", RobotMap.talon.getSelectedSensorPosition(0));
+		//System.out.println("Encoder Position: " + RobotMap.talon.getSelectedSensorPosition(0) + "Closed Loop Error: " + RobotMap.talon.getClosedLoopError(0));
 		Scheduler.getInstance().run();
+		//SmartDashboard.put
+		//Elevator.moveElevator();
 		//System.out.println(RobotMap.pidtest.getSensorCollection().getQuadraturePosition());
-		//System.out.println(RobotMap.pidtest.getSelectedSensorPosition(1333739));
+		//System.out.println(RobotMap.pidtest.getSelectedSensorPosition(1333739));[\]
 	}
 	
 	@Override
@@ -39,5 +64,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void testPeriodic() {
+		SmartDashboard.putData(RobotMap.talon);
 	}
 }

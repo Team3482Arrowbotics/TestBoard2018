@@ -12,10 +12,10 @@ public class SlowSpin extends Command{
 		this.speed = speed;
 	}
 	public void initialize(){
-		RobotMap.pidtest.set(ControlMode.PercentOutput, speed);
+		//RobotMap.pidtest.set(ControlMode.PercentOutput, speed);
 	}
 	public void end(){
-		RobotMap.pidtest.set(ControlMode.PercentOutput, 0);
+		//RobotMap.pidtest.set(ControlMode.PercentOutput, 0);
 	}
 	@Override
 	protected boolean isFinished() {

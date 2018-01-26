@@ -3,6 +3,7 @@ package org.usfirst.frc.team3482.robot;
 import org.usfirst.frc.team3482.robot.DPadButton.Direction;
 import org.usfirst.frc.team3482.robot.commands.MoveElevator;
 import org.usfirst.frc.team3482.robot.commands.SlowSpin;
+import org.usfirst.frc.team3482.robot.commands.Spintake;
 import org.usfirst.frc.team3482.robot.commands.SwitchPiston;
 import org.usfirst.frc.team3482.robot.subsystems.Elevator;
 
@@ -16,10 +17,11 @@ public class OI {
 	JoystickButton halfActuator;
 	JoystickButton retractActuator;
 	JoystickButton slowSpin;
+	JoystickButton runIntake;
 	DPadButton elevatorUp;
 	DPadButton elevatorDown;
 	public OI(){
-		x = new Joystick(0);
+		x = new Joystick(3);
 		switchPiston = new JoystickButton(x, 1);
 		switchPiston.whenPressed(new SwitchPiston());
 		//extendActuator = new JoystickButton(x, 2);
@@ -32,6 +34,10 @@ public class OI {
 		elevatorUp.whenPressed(new MoveElevator(0));
 		elevatorDown = new DPadButton(x, Direction.SOUTH);
 		elevatorDown.whenPressed(new MoveElevator(1));
+		
+		
+		runIntake = new JoystickButton(x, 6);
+		runIntake.whileHeld(new Spintake());
 	}
 	
 	public static Joystick getXbox() {

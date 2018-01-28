@@ -1,18 +1,16 @@
 package org.usfirst.frc.team3482.robot;
 
-import org.usfirst.frc.team3482.robot.subsystems.DartActuator;
 import org.usfirst.frc.team3482.robot.subsystems.Elevator;
+import org.usfirst.frc.team3482.robot.subsystems.LIDAR;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	public Elevator e;
+	public LIDAR lidar;
 	@Override
 	public void robotInit() {
 		RobotMap.init();
@@ -33,11 +31,17 @@ public class Robot extends IterativeRobot {
         _talon.config_kD(Constants.kPIDLoopIdx, 0.0, Constants.kTimeoutMs);*/
 		OI oi = new OI();
 		e = new Elevator();
+		lidar = new LIDAR(I2C.Port.kOnboard);
+		lidar.start(500);
 		
 		//RobotMap.talon.set(ControlMode.Position, 0);
 	}
 	@Override
 	public void teleopInit(){
+		//lidar.update();
+		System.out.println(lidar.getAddress());
+
+		
 		
 		//RobotMap.pidtest.set(ControlMode.PercentOutput, -0.5);
 		//RobotMap.pidtest.set(ControlMode.Position, 1000);
@@ -52,6 +56,8 @@ public class Robot extends IterativeRobot {
 		//SmartDashboard.putNumber("Talon Encoder Position", RobotMap.talon.getSelectedSensorPosition(0));
 		//System.out.println("Encoder Position: " + RobotMap.talon.getSelectedSensorPosition(0) + "Closed Loop Error: " + RobotMap.talon.getClosedLoopError(0));
 		Scheduler.getInstance().run();
+		lidar.update();
+		System.out.println("LIDAR Distance: " + LIDAR.getDistance());
 		//SmartDashboard.put
 		//Elevator.moveElevator();
 		//System.out.println(RobotMap.pidtest.getSensorCollection().getQuadraturePosition());
@@ -64,6 +70,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void testPeriodic() {
-		SmartDashboard.putData(RobotMap.talon);
+		SmartDashboard.putData(lidar);
+		SmartDashboard.putNumber("LIDAR Distance: ", lidar.getDistance());
 	}
 }

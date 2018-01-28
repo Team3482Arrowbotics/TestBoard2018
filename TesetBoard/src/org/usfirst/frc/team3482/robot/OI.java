@@ -21,14 +21,14 @@ public class OI {
 	DPadButton elevatorUp;
 	DPadButton elevatorDown;
 	public OI(){
-		x = new Joystick(3);
+		x = new Joystick(0);
 		switchPiston = new JoystickButton(x, 1);
 		switchPiston.whenPressed(new SwitchPiston());
 		//extendActuator = new JoystickButton(x, 2);
 		//extendActuator.whenPressed(new MoveActuatorPot(AcValue.kExtended));
 		//Below is actually to spin talon motor
 		slowSpin = new JoystickButton(x, 2);
-		slowSpin.whenPressed(new SlowSpin(.3));
+		slowSpin.whileHeld(new SlowSpin());
 		
 		elevatorUp = new DPadButton(x, Direction.NORTH);
 		elevatorUp.whenPressed(new MoveElevator(0));

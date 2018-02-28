@@ -11,6 +11,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	public Elevator e;
 	public LIDAR lidar;
+	public OI oi;
+	private double driveOutput=1;
+	private double speedControl=1;
+	private double speed;
 	@Override
 	public void robotInit() {
 		RobotMap.init();
@@ -51,6 +55,8 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
+		/*
+		
 		//RobotMap.talon.set(ControlMode.Position, 409600);
 		//System.out.println(OI.getXbox().getPOV());
 		//SmartDashboard.putNumber("Talon Encoder Position", RobotMap.talon.getSelectedSensorPosition(0));
@@ -62,6 +68,17 @@ public class Robot extends IterativeRobot {
 		//Elevator.moveElevator();
 		//System.out.println(RobotMap.pidtest.getSensorCollection().getQuadraturePosition());
 		//System.out.println(RobotMap.pidtest.getSelectedSensorPosition(1333739));[\]
+		
+		*/
+		speed = oi.x.getRawAxis(1);
+		RobotMap.talon.set(speed);
+		
+		System.out.println("Drive Motor Encoder Speed "+RobotMap.talon.getSelectedSensorVelocity(0));
+		driveOutput = RobotMap.talon.getMotorOutputPercent();
+		System.out.println("Drive Motor Percent Output "+driveOutput);
+		speedControl=RobotMap.speedPID.getOutput();
+		System.out.println("Speed PID Output "+speedControl);
+		
 	}
 	
 	@Override
